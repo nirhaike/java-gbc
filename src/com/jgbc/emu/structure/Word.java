@@ -5,8 +5,8 @@ package com.jgbc.emu.structure;
 
 public class Word implements Comparable<Word> {
 	
-	private byte low; // low byte
-	private byte high; // high byte
+	private int low; // low byte
+	private int high; // high byte
 	
 	private int num; // the whole number
 	
@@ -22,8 +22,8 @@ public class Word implements Comparable<Word> {
 	
 	public void setNum(int num) {
 		this.num = num & 0xFFFF;
-		this.low = (byte) (num & 0xFF);
-		this.high = (byte) ((num >> 8) & 0xFF);
+		this.low = num & 0xFF;
+		this.high = (num >> 8) & 0xFF;
 	}
 	
 	
@@ -38,13 +38,13 @@ public class Word implements Comparable<Word> {
 	
 	
 	public void setHighByte(int num) {
-		this.high = (byte) (num & 0xFF);
+		this.high = num & 0xFF;
 		this.num = high << 8 + low;
 	}
 	
 	
 	public void setLowByte(int num) {
-		this.low = (byte) (num & 0xFF);
+		this.low = num & 0xFF;
 		this.num = high << 8 + low;
 	}
 	

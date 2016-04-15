@@ -34,13 +34,16 @@ public class GameboyColor implements Runnable {
 	 * @post the game will be ready to run
 	 */
 	public void power(File f) {
+		// TODO finish this
 		core.initialize();
 		mmu.power();
 		powerOn = true;
 	}
 
 	public void run() {
+		// TODO finish this
 		while (powerOn) {
+			// execute a frame
 			execute();
 		}
 	}

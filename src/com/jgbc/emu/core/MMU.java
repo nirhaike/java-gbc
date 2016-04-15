@@ -24,7 +24,7 @@ public class MMU {
 		return 0;
 	}
 	
-	public void writeByte(int address) {
+	public void writeByte(int address, int value) {
 		// TODO
 	}
 

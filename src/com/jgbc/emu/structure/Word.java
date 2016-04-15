@@ -14,6 +14,10 @@ public class Word implements Comparable<Word> {
 		setNum(num);
 	}
 	
+	public Word() {
+		this(0);
+	}
+	
 	
 	public int getNum() {
 		return num & 0xFFFF;

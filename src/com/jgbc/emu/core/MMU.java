@@ -15,7 +15,7 @@ public class MMU {
 		// TODO
 	}
 	
-	public void power() {
+	public void initialize() {
 		// TODO
 	}
 	

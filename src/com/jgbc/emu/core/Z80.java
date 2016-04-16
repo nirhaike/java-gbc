@@ -20,8 +20,13 @@ public class Z80 {
 	private Word PC; // program counter
 	private Word SP; // stack pointer
 	
+	private int mCycles;
+	private int tCycles; 
+	
 	private MMU mmu;
+	private Cartridge cart;
 	private InterruptHandler irq;
+	
 	
 	public Z80() {
 		// TODO
@@ -30,12 +35,18 @@ public class Z80 {
 	public void initialize() {
 		// TODO continue this
 		// initialize the registers
-		AF = new Word();
-		BC = new Word();
-		DE = new Word();
-		HL = new Word();
-		PC = new Word();
-		SP = new Word();
+		if (cart.isCGB())
+			AF = new Word(0x11b0);
+		else
+			AF = new Word(0x01b0);
+		BC = new Word(0x0013);
+		DE = new Word(0x00d8);
+		HL = new Word(0x014d);
+		PC = new Word(0x0100);
+		SP = new Word(0xfffe);
+		// initialize the cycles
+		mCycles = 0;
+		tCycles = 0;
 	}
 	
 	public void setMMU(MMU mmu) {
@@ -44,6 +55,109 @@ public class Z80 {
 	
 	public void setInterruptHandler(InterruptHandler irq) {
 		this.irq = irq;
+	}
+	
+	public void setCartridge(Cartridge cart) {
+		this.cart = cart;
+	}
+	
+	// execute single instruction
+	public void execute() throws Exception {
+		int opcode = mmu.readByte(PC.getValue());
+		this.PC.increase();
+		if (opcode != 0xcb) {
+			// handle 1 byte opcodes
+			runOpcode(opcode);
+		} else {
+			// get the next byte
+			opcode = mmu.readByte(PC.getValue());
+			this.PC.increase();
+			// handle 2 bytes opcodes
+			runCBOpcode(opcode);
+		}
+	}
+	
+	// instructions map
+	public void runOpcode(int opcode) throws Exception {
+		switch (opcode) {
+		case 0x00:
+			nop();
+			break;
+		case 0xE1:
+			popHL();
+			break;
+		case 0xE5:
+			pushHL();
+			break;
+		case 0xF1:
+			popAF();
+			break;
+		case 0xF5:
+			pushAF();
+			break;
+		default:
+			unimplementedOpcode(opcode);
+			break;
+		}
+	}
+	
+	public void runCBOpcode(int opcode) throws Exception {
+		switch (opcode) {
+		default:
+			unimplementedOpcode(opcode);
+			break;
+		}
+	}
+	
+	// instructions simulating functions
+	public void pushAF() {
+		SP.decrease(); // move the stack pointer
+		mmu.writeByte(SP.getValue(), AF.getHighByte()); // write A
+		SP.decrease(); // move the stack pointer
+		mmu.writeByte(SP.getValue(), AF.getLowByte()); // write F
+		// update cycles
+		mCycles += 3;
+		tCycles += 12;
+	}
+	
+	public void pushHL() {
+		SP.decrease(); // move the stack pointer
+		mmu.writeByte(SP.getValue(), HL.getHighByte()); // write H
+		SP.decrease(); // move the stack pointer
+		mmu.writeByte(SP.getValue(), HL.getLowByte()); // write L
+		// update cycles
+		mCycles += 3;
+		tCycles += 12;
+	}
+	
+	public void popAF() {
+		this.AF.setLowByte(mmu.readByte(SP.getValue())); // read F
+		SP.increase(); // move the stack pointer
+		this.AF.setHighByte(mmu.readByte(SP.getValue())); // read A
+		SP.increase(); // move the stack pointer
+		// update cycles
+		mCycles += 3;
+		tCycles += 12;
+	}
+	
+	public void popHL() {
+		this.HL.setLowByte(mmu.readByte(SP.getValue())); // read L
+		SP.increase(); // move the stack pointer
+		this.HL.setHighByte(mmu.readByte(SP.getValue())); // read H
+		SP.increase(); // move the stack pointer
+		// update cycles
+		mCycles += 3;
+		tCycles += 12;
+	}
+	
+	public void nop() {
+		// update cycles
+		mCycles += 1;
+		tCycles += 4;
+	}
+	
+	public void unimplementedOpcode(int opcode) throws Exception {
+		throw new Exception("Unimplemented Opcode: " + opcode);
 	}
 	
 }

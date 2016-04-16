@@ -11,7 +11,7 @@ public class Word implements Comparable<Word> {
 	private int num; // the whole number
 	
 	public Word(int num) {
-		setNum(num);
+		setValue(num);
 	}
 	
 	public Word() {
@@ -19,12 +19,12 @@ public class Word implements Comparable<Word> {
 	}
 	
 	
-	public int getNum() {
+	public int getValue() {
 		return num & 0xFFFF;
 	}
 	
 	
-	public void setNum(int num) {
+	public void setValue(int num) {
 		this.num = num & 0xFFFF;
 		this.low = num & 0xFF;
 		this.high = (num >> 8) & 0xFF;
@@ -55,13 +55,13 @@ public class Word implements Comparable<Word> {
 	
 	public void increase() {
 		num = (num+1) & 0xFFFF;
-		setNum(num);
+		setValue(num);
 	}
 	
 	
 	public void decrease() {
 		num = (num-1) & 0xFFFF;
-		setNum(num);
+		setValue(num);
 	}
 	
 	
@@ -71,7 +71,7 @@ public class Word implements Comparable<Word> {
 
 
 	public int compareTo(Word other) {
-		return this.getNum() - other.getNum();
+		return this.getValue() - other.getValue();
 	}
 	
 }

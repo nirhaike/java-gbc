@@ -13,5 +13,16 @@ public class Cartridge {
 	
 	private int[] ram;
 	
+	public Cartridge() {
+		// TODO
+	}
+	
+	public boolean isCGB() {
+		return cgbFlag;
+	}
+	
+	public boolean isSGB() {
+		return sgbFlag;
+	}
 	
 }

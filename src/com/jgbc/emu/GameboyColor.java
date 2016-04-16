@@ -5,6 +5,7 @@ package com.jgbc.emu;
 
 import java.io.File;
 
+import com.jgbc.emu.core.Cartridge;
 import com.jgbc.emu.core.InterruptHandler;
 import com.jgbc.emu.core.MMU;
 import com.jgbc.emu.core.Z80;
@@ -13,6 +14,7 @@ public class GameboyColor implements Runnable {
 
 	private Z80 core;
 	private MMU mmu;
+	private Cartridge cart;
 	private InterruptHandler irq;
 	
 	private boolean powerOn;
@@ -21,9 +23,11 @@ public class GameboyColor implements Runnable {
 		// initialize the hardware components
 		this.core = new Z80();
 		this.mmu = new MMU();
+		this.cart = new Cartridge();
 		this.irq = new InterruptHandler();
 		// update core components
 		this.core.setMMU(mmu);
+		this.core.setCartridge(cart);
 		this.core.setInterruptHandler(irq);
 		// initialize other variables
 		powerOn = false;
@@ -36,7 +40,7 @@ public class GameboyColor implements Runnable {
 	public void power(File f) {
 		// TODO finish this
 		core.initialize();
-		mmu.power();
+		mmu.initialize();
 		powerOn = true;
 	}
 

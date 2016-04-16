@@ -7,10 +7,10 @@ import com.jgbc.emu.structure.Word;
 
 public class Z80 {
 	
-	public static final int C_FLAG = 0x10; // carry flag
-	public static final int H_FLAG = 0x20; // half-carry flag
-	public static final int N_FLAG = 0x40; // operation (subtraction) flag
-	public static final int Z_FLAG = 0x80; // zero flag
+	public static final int C_FLAG_MASK = 0x10; // carry flag
+	public static final int H_FLAG_MASK = 0x20; // half-carry flag
+	public static final int N_FLAG_MASK = 0x40; // operation (subtraction) flag
+	public static final int Z_FLAG_MASK = 0x80; // zero flag
 	
 	private Word AF; // accumulator and flags
 	private Word BC; // b and c registers
@@ -28,7 +28,14 @@ public class Z80 {
 	}
 	
 	public void initialize() {
-		// TODO
+		// TODO continue this
+		// initialize the registers
+		AF = new Word();
+		BC = new Word();
+		DE = new Word();
+		HL = new Word();
+		PC = new Word();
+		SP = new Word();
 	}
 	
 	public void setMMU(MMU mmu) {

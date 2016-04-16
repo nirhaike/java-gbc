@@ -10,13 +10,19 @@ package com.jgbc.emu.core;
  *
  */
 public class MMU {
-
+	
+	private Cartridge cart;
+	
 	public MMU() {
 		// TODO
 	}
 	
 	public void initialize() {
 		// TODO
+	}
+	
+	public void setCartridge(Cartridge cart) {
+		this.cart = cart;
 	}
 	
 	public byte readByte(int address) {

@@ -13,12 +13,15 @@ public class MMU {
 	
 	private Cartridge cart;
 	
+	private boolean inBios;
+	
 	public MMU() {
 		// TODO
 	}
 	
 	public void initialize() {
-		// TODO
+		// TODO complete this
+		inBios = true;
 	}
 	
 	public void setCartridge(Cartridge cart) {

@@ -5,7 +5,7 @@ package com.jgbc.emu.core;
 
 public class Cartridge {
 
-	public static final int ROM_BANK_OFFSET = 0x4000;
+	public static final int ROM_BANK_SIZE = 0x4000;
 	
 	private boolean cgbFlag;
 	private boolean sgbFlag;
@@ -15,6 +15,7 @@ public class Cartridge {
 	
 	public Cartridge() {
 		// TODO load cartridge
+		currRomBank = 1;
 	}
 	
 	public boolean isCGB() {
@@ -31,12 +32,16 @@ public class Cartridge {
 	
 	// read from the current rom bank
 	public int readRom(int addr) {
-		return rom[ROM_BANK_OFFSET * currRomBank + addr] & 0xff;
+		return rom[addr] & 0xff;
 	}
 	
 	// write to the current rom bank
 	public void writeRom(int addr, int val) {
-		rom[ROM_BANK_OFFSET * currRomBank + addr] = val & 0xff;
+		rom[addr] = val & 0xff;
+	}
+	
+	public int getRomOffset() {
+		return ROM_BANK_SIZE * currRomBank;
 	}
 	
 	public void setRomBank(int romBank) {

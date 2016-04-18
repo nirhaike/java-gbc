@@ -49,6 +49,62 @@ public class Z80 {
 		tCycles = 0;
 	}
 	
+	public int getPC() {
+		return PC.getValue();
+	}
+	
+	public int getAF() {
+		return AF.getValue();
+	}
+	
+	public int getBC() {
+		return BC.getValue();
+	}
+	
+	public int getDE() {
+		return DE.getValue();
+	}
+	
+	public int getHL() {
+		return HL.getValue();
+	}
+	
+	public int getSP() {
+		return SP.getValue();
+	}
+	
+	public int getA() {
+		return AF.getHighByte();
+	}
+	
+	public int getF() {
+		return AF.getLowByte();
+	}
+	
+	public int getB() {
+		return BC.getHighByte();
+	}
+	
+	public int getC() {
+		return BC.getLowByte();
+	}
+	
+	public int getD() {
+		return DE.getHighByte();
+	}
+	
+	public int getE() {
+		return DE.getLowByte();
+	}
+	
+	public int getH() {
+		return HL.getHighByte();
+	}
+	
+	public int getL() {
+		return HL.getLowByte();
+	}
+	
 	public void setMMU(MMU mmu) {
 		this.mmu = mmu;
 	}

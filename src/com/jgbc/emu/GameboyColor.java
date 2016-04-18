@@ -31,6 +31,7 @@ public class GameboyColor implements Runnable {
 		this.core.setInterruptHandler(irq);
 		// update memory map components
 		this.mmu.setCartridge(cart);
+		this.mmu.setCore(core);
 		// initialize other variables
 		powerOn = false;
 	}

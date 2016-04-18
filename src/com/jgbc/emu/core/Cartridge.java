@@ -10,7 +10,6 @@ public class Cartridge {
 	private boolean cgbFlag;
 	private boolean sgbFlag;
 		
-	private int[] ram;
 	private int[] rom; // cartridge loaded data (all banks)
 	private int currRomBank;
 	

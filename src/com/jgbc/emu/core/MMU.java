@@ -75,8 +75,8 @@ public class MMU {
 	public void initialize() {
 		// TODO complete this
 		inBios = true;
-		workingRam = new int[0x2000]; // 8k
-		externalRam = new int[0x2000]; // 8k
+		workingRam = new int[0x2000];
+		externalRam = new int[0x2000];
 		zeroPageRam = new int[0x80];
 		// bios size: 0x100
 		bios = new int[] {
@@ -154,7 +154,10 @@ public class MMU {
 	}
 	
 	public void writeByte(int address, int value) {
-		// TODO
+		switch (address & 0xF000) {
+		default:
+			break;
+		}
 	}
 
 }
